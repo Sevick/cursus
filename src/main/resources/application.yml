@@ -1,0 +1,55 @@
+server:
+  ssl:
+    enabled: true
+    key-store: config/keystore.p12
+    key-store-password: keystorepassword
+    key-store-type: pkcs12
+    key-alias: keyalias
+  port: 8101
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: 8102
+
+logging:
+  level:
+    web: DEBUG
+    org:
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: DEBUG
+        security: DEBUG
+
+
+spring:
+  http:
+    log-request-details: true
+  rabbitmq:
+    addresses: amqp://USER:PASSWORD@localhost
+    template:
+      retry:
+        enabled: true
+        initial-interval: 2s
+
+
+
+cursus:
+  security:
+    googleauth:
+      role: [EXT_USER]
+      password: PASSWORD
+    testuser:
+      role: [INT_USER]
+      password: PASSWORD
+  gassist2rabbit:
+    exchange: GOBLINEXCH
+    routingkey: ROUTINGKEYVALUE
+  routing:
+    GOOGLE_ACTIONS: [rabbitGoogleAction]
+    GOOGLE_DIALOGFLOW: [rabbitGoogleAction]
+
